@@ -6,7 +6,10 @@ import { send } from 'process';
 
 @Injectable()
 export class RequestService {
-  constructor(private readonly prisma: PrismaService , private readonly chatRoomsService : ChatRoomsService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly chatRoomsService: ChatRoomsService,
+  ) {}
   async sendRequest(uid: string, sender: string) {
     const request = await this.prisma.request.create({
       data: {
@@ -14,7 +17,7 @@ export class RequestService {
         recivedId: uid,
       },
     });
-    return request
+    return request;
   }
 
   async getRequests(id: string) {
@@ -24,11 +27,11 @@ export class RequestService {
         status: 'pending',
       },
       select: {
-        id : true  ,
+        id: true,
         sender: {
           select: {
             fullName: true,
-            id: true
+            id: true,
           },
         },
         date: true,
@@ -38,14 +41,16 @@ export class RequestService {
   }
   async handleResponse(response: ResponseDto, userid: string) {
     if (response.response === true) {
-      const x = await this.prisma.request.findUnique({where:{id : response.reqid}}) ; 
-      await this.prisma.request.delete({where:{id:response.reqid}})
+      const x = await this.prisma.request.findUnique({
+        where: { id: response.reqid },
+      });
+      await this.prisma.request.delete({ where: { id: response.reqid } });
       const friendship = await this.prisma.friend.create({
         data: {
-          user1 : x.recivedId , 
-          user2 : x.senderId , 
-        }
-      }) ; 
+          user1: x.recivedId,
+          user2: x.senderId,
+        },
+      });
 
       return 'you acceppted the request';
     } else {
@@ -74,32 +79,27 @@ export class RequestService {
     });
   }
 
-  async getUsersByName(name : string , thisUser : string){
+  async getUsersByName(name: string, thisUser: string) {
     const users = await this.prisma.user.findMany({
-      where :{
-        id : {
-          not: thisUser 
-        }, 
-        fullName : {
-          contains : name , 
-          mode : 'insensitive'
-        } ,
-        friendships : {
-          none : {
-            OR : [
-              {reciver : {id : thisUser}}, 
-              {sender : {id: thisUser}}
-            ]
-          }       
-        }
-      } , 
-      select :{
-        fullName : true , 
-        id : true
-      }
-    }) ; 
-  return users;  
+      where: {
+        id: {
+          not: thisUser,
+        },
+        fullName: {
+          contains: name,
+          mode: 'insensitive',
+        },
+        friendships: {
+          none: {
+            OR: [{ reciver: { id: thisUser } }, { sender: { id: thisUser } }],
+          },
+        },
+      },
+      select: {
+        fullName: true,
+        id: true,
+      },
+    });
+    return users;
   }
-  
-
 }

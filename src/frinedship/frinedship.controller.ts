@@ -18,9 +18,6 @@ export class FrinedshipController {
     return this.frinedshipService.findAll(req.user);
   }
 
-
-  
-
   //@Get(':id')
   //findOne(@Param('id') id: string) {
   //  return this.frinedshipService.findOne(+id);

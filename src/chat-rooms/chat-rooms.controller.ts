@@ -1,4 +1,12 @@
-import { Controller, Get, Param, UseGuards, Post, Body, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  UseGuards,
+  Post,
+  Body,
+  Request,
+} from '@nestjs/common';
 import { ChatRoomsService } from './chat-rooms.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 
@@ -7,13 +15,16 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class ChatRoomsController {
   constructor(private readonly chatRoomsService: ChatRoomsService) {}
 
-  @Get(":chatid")
-  chatRoomInfo(@Param() {chatid} : {chatid:  string} ){
-    return this.chatRoomsService.getChatInfo(chatid) ; 
+  @Get(':chatid')
+  chatRoomInfo(@Param() { chatid }: { chatid: string }) {
+    return this.chatRoomsService.getChatInfo(chatid);
   }
 
   @Post()
-  addUserRoom(@Body() {users , chatid} : {users: string[] , chatid :string} , @Request() req){
-    return this.chatRoomsService.addUserToChat(users,chatid  )  ; 
+  addUserRoom(
+    @Body() { users, chatid }: { users: string[]; chatid: string },
+    @Request() req,
+  ) {
+    return this.chatRoomsService.addUserToChat(users, chatid);
   }
 }

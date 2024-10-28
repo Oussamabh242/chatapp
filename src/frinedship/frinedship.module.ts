@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports :[AuthModule,PrismaModule ] , 
+  imports: [AuthModule, PrismaModule],
   controllers: [FrinedshipController],
   providers: [FrinedshipService, PrismaService],
 })

@@ -7,7 +7,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { ChatRoomsModule } from 'src/chat-rooms/chat-rooms.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule , ChatRoomsModule],
+  imports: [AuthModule, PrismaModule, ChatRoomsModule],
   controllers: [RequestController],
   providers: [RequestService, PrismaService],
 })

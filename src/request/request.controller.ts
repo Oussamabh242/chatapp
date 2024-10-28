@@ -30,22 +30,20 @@ export class RequestController {
   @Get()
   @UseGuards(AuthGuard)
   getAllRequest(@Request() req) {
-
-    console.log(req.user)
+    console.log(req.user);
     return this.requestService.getRequests(req.user);
   }
 
   @Put()
   @UseGuards(AuthGuard)
   respondRequest(@Body() response: ResponseDto, @Request() req) {
-
     return this.requestService.handleResponse(response, req.user);
   }
 
   @Get('search/:name')
   @UseGuards(AuthGuard)
-  getFriends(@Param('name') name : string , @Request() req){
-    console.log('hit' , req.user)
-    return this.requestService.getUsersByName(name , req.user); 
+  getFriends(@Param('name') name: string, @Request() req) {
+    console.log('hit', req.user);
+    return this.requestService.getUsersByName(name, req.user);
   }
 }

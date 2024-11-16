@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Post,
   Request,
@@ -20,5 +21,11 @@ export class MessagesController {
     @Request() req,
   ) {
     return this.messagesService.sendMessage(message, req.user);
+  }
+
+  @Get(':id')
+  getAllMessages(@Param('id') id: string, @Request() req) {
+    const userid = req.user;
+    return this.messagesService.getMessages(id, userid);
   }
 }

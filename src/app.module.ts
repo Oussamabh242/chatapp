@@ -9,6 +9,7 @@ import { RequestModule } from './request/request.module';
 import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
 import { MessagesModule } from './messages/messages.module';
 import { FrinedshipModule } from './frinedship/frinedship.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { FrinedshipModule } from './frinedship/frinedship.module';
     ChatRoomsModule,
     MessagesModule,
     FrinedshipModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

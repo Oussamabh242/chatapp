@@ -43,7 +43,10 @@ export class RequestController {
   @Get('search/:name')
   @UseGuards(AuthGuard)
   getFriends(@Param('name') name: string, @Request() req) {
-    console.log('hit', req.user);
+    console.log('here');
+    if (!name || !name.trim()) {
+      console.log('something');
+    }
     return this.requestService.getUsersByName(name, req.user);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ResponseDto } from './dto/respond.dto';
 import { ChatRoomsService } from 'src/chat-rooms/chat-rooms.service';
@@ -11,6 +11,31 @@ export class RequestService {
     private readonly chatRoomsService: ChatRoomsService,
   ) {}
   async sendRequest(uid: string, sender: string) {
+    console.log('inside send requst ');
+    const foundReqs = await this.prisma.request.findMany({
+      where: {
+        OR: [
+          { AND: [{ senderId: sender }, { recivedId: uid }] },
+          { AND: [{ senderId: uid }, { recivedId: sender }] },
+        ],
+      },
+    });
+    if (foundReqs.length != 0) {
+      console.log('found request pending betwenn two users');
+      throw new BadRequestException('Invalid request data!');
+    }
+    const foundfriends = await this.prisma.friend.findMany({
+      where: {
+        OR: [
+          { AND: [{ user1: uid }, { user2: sender }] },
+          { AND: [{ user1: sender }, { user2: uid }] },
+        ],
+      },
+    });
+    if (foundfriends.length != 0) {
+      console.log('foundfriends between the two ');
+      throw new BadRequestException('Invalid request data');
+    }
     const request = await this.prisma.request.create({
       data: {
         senderId: sender,
@@ -51,23 +76,16 @@ export class RequestService {
           user2: x.senderId,
         },
       });
-
+      await this.acceptRequest([friendship.user1, friendship.user2]);
       return 'you acceppted the request';
     } else {
       this.refuseRequest(response.reqid, userid);
       return 'you refused the request';
     }
   }
-  async acceptRequest(reqid: string, uid: string) {
-    return await this.prisma.request.update({
-      where: {
-        id: reqid,
-        recivedId: uid,
-      },
-      data: {
-        status: 'confirmed',
-      },
-    });
+  async acceptRequest(subs: string[]) {
+    const chat = await this.chatRoomsService.createRoom(subs);
+    await this.chatRoomsService.addUserToChat(subs, chat.id);
   }
 
   async refuseRequest(reqid: string, uid: string) {
@@ -100,6 +118,6 @@ export class RequestService {
         id: true,
       },
     });
-    return users;
+    return users || [];
   }
 }

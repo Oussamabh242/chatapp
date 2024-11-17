@@ -26,6 +26,7 @@ export class MessagesController {
   @Get(':id')
   getAllMessages(@Param('id') id: string, @Request() req) {
     const userid = req.user;
+    //console.log(userid)
     return this.messagesService.getMessages(id, userid);
   }
 }

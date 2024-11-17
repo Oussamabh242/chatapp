@@ -1,8 +1,12 @@
 import { Socket } from 'socket.io';
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
 export class OnlineRegistery {
   private registry: Map<string, Socket>;
   constructor() {
     this.registry = new Map<string, Socket>();
+    console.log('started');
   }
   addClient(id: string, socket: Socket): void {
     this.registry.set(id, socket);
@@ -14,6 +18,6 @@ export class OnlineRegistery {
     return this.registry.get(id);
   }
   all() {
-    console.log(this.registry.keys());
+    return;
   }
 }

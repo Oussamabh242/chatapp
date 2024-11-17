@@ -17,6 +17,7 @@ export class ChatRoomsController {
 
   @Get(':chatid')
   chatRoomInfo(@Param() { chatid }: { chatid: string }) {
+    console.log('somethinghere');
     return this.chatRoomsService.getChatInfo(chatid);
   }
 

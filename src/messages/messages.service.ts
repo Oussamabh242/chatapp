@@ -24,8 +24,8 @@ export class MessagesService {
   }
   async getMessages(chatId: string, userid: string) {
     const insideChat = await this.chekcUser(userid, chatId);
-    console.log(insideChat);
     if (!insideChat) {
+      console.log('something worng here');
       throw new ForbiddenException('user is not in chat');
     }
     const chatInfo = await this.prisma.chat.findUnique({
@@ -46,7 +46,6 @@ export class MessagesService {
         },
       },
     });
-    console.log(chatInfo);
     return chatInfo;
   }
 

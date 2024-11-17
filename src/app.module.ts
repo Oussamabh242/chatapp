@@ -10,6 +10,9 @@ import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
 import { MessagesModule } from './messages/messages.module';
 import { FrinedshipModule } from './frinedship/frinedship.module';
 import { ChatModule } from './chat/chat.module';
+import { SssModule } from './sss/sss.module';
+import { WsguardModule } from './wsguard/wsguard.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -22,6 +25,9 @@ import { ChatModule } from './chat/chat.module';
     MessagesModule,
     FrinedshipModule,
     ChatModule,
+    SssModule,
+    WsguardModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],

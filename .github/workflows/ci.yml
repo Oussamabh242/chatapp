@@ -15,14 +15,23 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Install deps
         run: npm ci
+
       - name : Generate Prisma
+        run: npm run generate
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npm run generate
+
       - name: Build
         run: npm run build
+
+      - name : check DB URL
+        run: echo $DATABASE_URL
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: run
         run : npm start
         env:

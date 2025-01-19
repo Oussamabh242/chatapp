@@ -19,7 +19,7 @@ import { RedisModule } from './redis/redis.module';
     PrismaModule,
     UserModule,
     AuthModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot(),
     RequestModule,
     ChatRoomsModule,
     MessagesModule,

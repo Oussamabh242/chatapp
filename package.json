@@ -2,9 +2,12 @@
   "name": "monorepo",
   "private": true,
   "scripts": {
+    "start": "turbo start",
+    "generate": "cd apps/server && npx prisma generate" ,
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "start":"turbo start",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "resolutions":{

@@ -20,7 +20,7 @@ jobs:
       - name: Install deps
         run: npm ci
       - name : Generate Prisma
-        run: npm db generate
+        run: npm run generate
       - name: Build
         run: npm run build
       - name: run

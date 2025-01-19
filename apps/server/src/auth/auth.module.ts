@@ -5,6 +5,7 @@ import { UserRepository } from 'src/user/user.repository';
 import { UserModule } from 'src/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './auth.guard';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthGuard } from './auth.guard';
       secret: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: '24h' },
     }),
+    ConfigModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, AuthGuard],

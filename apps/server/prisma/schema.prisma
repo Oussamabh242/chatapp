@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String @id @default(cuid())
+  fullName String @db.VarChar(60)
+  email    String @unique @db.VarChar(60)
+  password String @db.VarChar(60)
+  verified Boolean @default(false)
+  recived Request[] @relation("RecivedRequests")
+  sent Request[]    @relation("SentRequests")
+  chats ChatUser[]
+  messages Message[]
+  friendships Friend[] @relation("recived")
+  relationship Friend[] @relation("sent")
+}
+
+model Request{
+  id String @id @default(cuid())
+
+//  user1 User @relation("SentRequests" ,fields: [user1Id], references: [id])
+  user1Id String
+
+// user2 User @relation("RecivedRequests",   fields: [user2Id] , references: [id])
+  user2Id String
+
+  userfrom User @relation("RecivedRequests",   fields: [user2Id] , references: [id])
+  from String
+
+  userto User @relation("SentRequests" ,fields: [user1Id], references: [id])
+  to   String
+
+  status RequestStatus @default(pending)
+  date DateTime @db.Timestamp() @default(now())
+  @@unique([user1Id , user2Id])
+}
+
+model Chat{
+  id String @id @default(cuid())
+  name String @db.VarChar(60)
+  date DateTime @db.Timestamp() @default(now())
+  users ChatUser[]
+  messages Message[]
+}
+
+model ChatUser{
+  chat Chat @relation(fields: [chatId], references: [id])
+  chatId String
+
+  user User @relation(fields: [userId] , references: [id])
+  userId String
+
+  @@id([chatId,userId])
+}
+
+model Message{
+  id String @id @default(cuid())
+  text String @db.VarChar(100)
+
+  sender User @relation(fields: [senderId] , references: [id])
+  senderId String
+
+  chat Chat  @relation(fields: [chatId] , references: [id])
+  chatId String
+
+  DateSent DateTime @default(now())
+}
+
+model Friend{
+  id String @id @default(cuid())
+  user1 User @relation("recived" , fields: [user1Id] , references : [id])
+  user1Id String
+
+  user2 User @relation("sent" , fields: [user2Id] , references : [id])
+  user2Id String
+
+  @@unique([user1Id , user2Id])
+
+}
+
+enum RequestStatus {
+  pending
+  confirmed
+}

@@ -1,0 +1,17 @@
+{
+  "name": "shared-types",
+  "main": "dist/index.js",
+  "types": "dist/index.js",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx tsc --watch",
+    "build" : "npx tsc"
+  },
+  "dependencies":{
+    "typescript" : "latest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

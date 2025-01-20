@@ -2,6 +2,7 @@
   "name": "monorepo",
   "private": true,
   "scripts": {
+    "actionsTest":"cd apps/server && npm start",
     "start": "turbo start",
     "generate": "cd apps/server && npx prisma generate" ,
     "build": "turbo build",

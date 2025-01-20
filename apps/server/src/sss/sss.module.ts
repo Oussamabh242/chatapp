@@ -6,9 +6,10 @@ import { RedisService } from 'src/redis/redis.service';
 import { MessagesModule } from 'src/messages/messages.module';
 import { OnlineRegistery } from 'src/online/online.registery';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports: [MessagesModule],
+  imports: [MessagesModule, PrismaModule],
   providers: [
     SssGateway,
     SssService,

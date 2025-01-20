@@ -3,7 +3,8 @@
   "ui": "tui",
   "tasks": {
     "start":{
-      "dependsOn":["^build"]
+      "dependsOn":["^build"],
+      "env":["DATABASE_URL" ,"JWT_SECRET_KEY"]
     },
     "build": {
       "dependsOn": ["^build"],

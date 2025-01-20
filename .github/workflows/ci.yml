@@ -33,6 +33,6 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: run
-        run : npm run actionsTest
+        run : timeout 60s npm run actionsTest
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}

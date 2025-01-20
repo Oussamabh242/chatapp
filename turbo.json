@@ -2,6 +2,9 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
+    "test":{
+      "env":["DATABASE_URL"]
+    },
     "start":{
       "dependsOn":["^build"],
       "env":["DATABASE_URL" ,"JWT_SECRET_KEY"]

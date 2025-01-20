@@ -3,7 +3,7 @@ on :
   pull_request:
     branches: ['*']
 jobs:
-  test :
+  unit-tests :
     runs-on : ubuntu-latest
     strategy :
       matrix :
@@ -27,12 +27,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name : check DB URL
-        run: echo $DATABASE_URL
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-      # - name: run
-      #   run : timeout 60s npm run actionsTest
+      # - name : check DB URL
+      #   run: echo $DATABASE_URL
       #   env:
       #     DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Run unit tests
+        run : npm test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}

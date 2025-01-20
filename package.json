@@ -2,19 +2,20 @@
   "name": "monorepo",
   "private": true,
   "scripts": {
-    "actionsTest":"cd apps/server && npm start",
+    "test": "turbo test",
+    "actionsTest": "cd apps/server && npm start",
     "start": "turbo start",
-    "generate": "cd apps/server && npx prisma generate" ,
+    "generate": "cd apps/server && npx prisma generate",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "start":"turbo start",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "resolutions":{
-    "@nestjs/common":"^11.0.1"
+  "resolutions": {
+    "@nestjs/common": "^11.0.1"
   },
   "devDependencies": {
+    "jest-mock-extended": "^4.0.0-beta1",
     "prettier": "^3.2.5",
     "turbo": "^2.3.3",
     "typescript": "5.5.4"

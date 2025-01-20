@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
   IsNotEmpty,
@@ -13,4 +14,12 @@ export class ReqResponseDto {
   @IsBoolean()
   @IsNotEmpty()
   response: boolean;
+}
+
+export class RequestReq {
+  @ApiProperty({
+    description: 'request Reciver',
+    required: true,
+  })
+  reciver: string;
 }

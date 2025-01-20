@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { RequestService } from './request.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ReqResponseDto } from './dto/respond.dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ReqResponseDto, RequestReq } from './dto/respond.dto';
+import { ApiBearerAuth, ApiProperty } from '@nestjs/swagger';
 
 @Controller('request')
 export class RequestController {
@@ -21,9 +21,13 @@ export class RequestController {
   @Post()
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  makeRequest(@Body() { reciver }: { reciver: string }, @Request() req) {
+  //@ApiProperty({
+  //  description: 'send request',
+  //  type: ,
+  //})
+  makeRequest(@Body() reciver: RequestReq, @Request() req) {
     try {
-      return this.requestService.sendRequest(reciver, req.user);
+      return this.requestService.sendRequest(reciver.reciver, req.user);
     } catch {
       return 'something wrong happend while sneding a request';
     }

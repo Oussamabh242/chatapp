@@ -2,6 +2,10 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
+    "test:e2e":{
+      "env":["DATABASE_URL"]
+    },
+
     "test":{
       "env":["DATABASE_URL"]
     },

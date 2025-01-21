@@ -2,6 +2,7 @@
   "name": "monorepo",
   "private": true,
   "scripts": {
+    "test:e2e": "turbo test:e2e" ,
     "test": "turbo test",
     "actionsTest": "cd apps/server && npm start",
     "start": "turbo start",
@@ -27,5 +28,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "supertest": "^7.0.0"
+  }
 }

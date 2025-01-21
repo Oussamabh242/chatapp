@@ -35,9 +35,9 @@ export class RequestController {
 
   @Get()
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   async getAllRequest(@Request() req) {
     const x = await this.requestService.getRequests(req.user);
-    console.log(x);
     return x;
   }
 

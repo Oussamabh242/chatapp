@@ -37,6 +37,6 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Run Integration tests
-        run: npm run test:e2e
+        run: cd apps/server && npm run test:e2e
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}

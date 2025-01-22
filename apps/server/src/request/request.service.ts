@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ChatRoomsService } from 'src/chat-rooms/chat-rooms.service';
 import { ReqResponseDto } from './dto/respond.dto';
-import { error } from 'console';
 
 type Return_t<T> = {
   error?: string;
